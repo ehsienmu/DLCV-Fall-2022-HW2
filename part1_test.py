@@ -1,4 +1,4 @@
-import random
+# import random
 import argparse
 import torch
 import numpy as np
@@ -49,7 +49,7 @@ def get_dataset(root):
 
 def same_seeds(seed):
     # Python built-in random module
-    random.seed(seed)
+    # random.seed(seed)
     # Numpy
     np.random.seed(seed)
     # Torch
