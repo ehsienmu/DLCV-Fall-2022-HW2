@@ -153,20 +153,9 @@ if __name__ == '__main__':
     model = model.to(device)
     
     val_set = CustomImageDataset('./hw2_data/digits/usps/data', './hw2_data/digits/usps/val.csv', have_label=True, transform=tf)
-    # val_set = CustomImageDataset_with_filename(args.input_dir, transform=tf)
-    # train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
-    # print(val_set)
 
-    # sdfdf
     val_loader = DataLoader(val_set, batch_size=1, shuffle=False)
 
-    # We often apply crossentropyloss for classification problem. Check it on pytorch if interested
-    # criterion = nn.CrossEntropyLoss()
-    
-    ### TO DO ### 
-    # Complete the function train
-    # Check tool.py
-    # count_parameters(model)
     last_second_results = []
     labels = []
     with torch.no_grad():
@@ -187,53 +176,10 @@ if __name__ == '__main__':
 
             # pass forward function define in the model and get output 
             output_feature = model.get_feature(data)
-            # _, output_domain = model(data, 0)
-            # calculate the loss between output and ground truth
-            # loss = criterion(output, label)
-            
-            # # discard the gradient left from former iteration 
-            # optimizer.zero_grad()
 
-            # # calcualte the gradient from the loss function 
-            # loss.backward()
-            
-            # # if the gradient is too large, we dont adopt it
-            # grad_norm = nn.utils.clip_grad_norm_(model.parameters(), max_norm= 5.)
-            
-            # # Update the parameters according to the gradient we calculated
-            # optimizer.step()
-
-            # val_loss += loss.item()
-
-            # predict the label from the last layers' output. Choose index with the biggest probability 
-            # pred = output.argmax(dim=1)
-            
-            # results.append((fname[0].split('/')[-1], str(int(pred[0]))))
-            
             last_second_results.append(output_feature.cpu().detach().numpy())
             labels.append(label.cpu().detach().numpy())
-            # correct if label == predict_label
-            # corr_num += (pred.eq(label.view_as(pred)).sum().item())
 
-        # scheduler += 1 for adjusting learning rate later
-        
-        # averaging training_loss and calculate accuracy
-        # val_loss = val_loss / len(val_loader.dataset) 
-        # val_acc = corr_num / len(val_loader.dataset)
-        
-        # record the training loss/acc
-        # overall_val_loss[i], overall_val_acc[i] = val_loss, val_acc
-    #     overall_val_loss.append(val_loss)
-    #     overall_val_acc.append(val_acc)
-    #     scheduler.step(val_loss)
-    #     # scheduler.step()
-    # #####################
-        
-        # Display the results
-        
-        # # print(f'training loss : {train_loss:.4f} ', f' train acc = {train_acc:.4f}' )
-        # print(f'val loss : {val_loss:.4f} ', f' val acc = {val_acc:.4f}' )
-        # print('========================\n')
     import pickle
     with open('./sec_last_for_tsne_feat_mu_u.pk', 'wb') as f:
         pickle.dump(last_second_results, f)

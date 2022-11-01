@@ -93,21 +93,9 @@ if __name__ == '__main__':
 
     model = model.to(device)
     
-    # train_set = CustomImageDataset(data_folder_path=training_data_path, have_label=True, transform=train_tfm)
     val_set = CustomImageDataset_with_filename(args.input_dir, transform=tf)
-    # train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
-    # print(val_set)
-
-    # sdfdf
     val_loader = DataLoader(val_set, batch_size=1, shuffle=False)
 
-    # We often apply crossentropyloss for classification problem. Check it on pytorch if interested
-    # criterion = nn.CrossEntropyLoss()
-    
-    ### TO DO ### 
-    # Complete the function train
-    # Check tool.py
-    # count_parameters(model)
     results = []
     with torch.no_grad():
         model.eval()
@@ -115,10 +103,6 @@ if __name__ == '__main__':
         corr_num = 0
         val_acc = 0.0
         
-        ## TO DO ## 
-        # Finish forward part in validation. You can refer to the training part 
-        # Note : You don't have to update parameters this part. Just Calculate/record the accuracy and loss. 
-
         for batch_idx, (data, fname,) in enumerate(tqdm(val_loader)):
             # put the data and label on the device
             # note size of data (B,C,H,W) --> B is the batch size
@@ -128,51 +112,10 @@ if __name__ == '__main__':
             # pass forward function define in the model and get output 
             output, _ = model(data, 0) 
 
-            # calculate the loss between output and ground truth
-            # loss = criterion(output, label)
-            
-            # # discard the gradient left from former iteration 
-            # optimizer.zero_grad()
-
-            # # calcualte the gradient from the loss function 
-            # loss.backward()
-            
-            # # if the gradient is too large, we dont adopt it
-            # grad_norm = nn.utils.clip_grad_norm_(model.parameters(), max_norm= 5.)
-            
-            # # Update the parameters according to the gradient we calculated
-            # optimizer.step()
-
-            # val_loss += loss.item()
-
             # predict the label from the last layers' output. Choose index with the biggest probability 
             pred = output.argmax(dim=1)
-            
             results.append((fname[0].split('/')[-1], str(int(pred[0]))))
             
-            # correct if label == predict_label
-            # corr_num += (pred.eq(label.view_as(pred)).sum().item())
-
-        # scheduler += 1 for adjusting learning rate later
-        
-        # averaging training_loss and calculate accuracy
-        # val_loss = val_loss / len(val_loader.dataset) 
-        # val_acc = corr_num / len(val_loader.dataset)
-        
-        # record the training loss/acc
-        # overall_val_loss[i], overall_val_acc[i] = val_loss, val_acc
-    #     overall_val_loss.append(val_loss)
-    #     overall_val_acc.append(val_acc)
-    #     scheduler.step(val_loss)
-    #     # scheduler.step()
-    # #####################
-        
-        # Display the results
-        
-        # # print(f'training loss : {train_loss:.4f} ', f' train acc = {train_acc:.4f}' )
-        # print(f'val loss : {val_loss:.4f} ', f' val acc = {val_acc:.4f}' )
-        # print('========================\n')
-
     with open(args.output_file, 'w') as f:
         f.write('image_name,label\n')
         for fname, predl in results:
