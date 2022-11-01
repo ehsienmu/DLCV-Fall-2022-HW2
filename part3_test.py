@@ -118,9 +118,13 @@ if __name__ == '__main__':
             
     with open(args.output_file, 'w') as f:
         f.write('image_name,label\n')
-        for fname, predl in results:
+        f0, p0 = results[0]
+        f.write(f0)
+        f.write(',')
+        f.write(p0)
+        for fname, predl in results[1:]:
+            f.write('\n')
             f.write(fname)
             f.write(',')
             f.write(predl)
-            f.write('\n')
         
