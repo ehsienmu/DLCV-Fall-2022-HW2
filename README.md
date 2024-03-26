@@ -1,13 +1,26 @@
 # DLCV-Fall-2022-HW2
+## Problem list
+- **Image Generation**
+    - **Problem 1:** GAN (35%) [face dataset - CelebA]
+    - **Problem 2:** Diffusion models (35%) [digit dataset - MNIST-M]
+- **Unsupervised Domain Adaptation (UDA)**
+    - **Problem 3:** DANN (35%) [digit dataset - MNIST-M, SVHN and USPS]
+
+
+## Slides
 Please click [this link](https://docs.google.com/presentation/d/1A38mJUAfDo-4yYzy6UCBZrEo3aE50ceO/edit?usp=sharing&ouid=107585355306558125830&rtpof=true&sd=true) to view the slides of HW2
 
-## Usage
+## Results
+
+Please click [hw2_r10921a36.pdf](https://github.com/ehsienmu/DLCV-Fall-2022-HW2/blob/main/hw2_r10921a36.pdf)
+
+# Usage
 To start working on this assignment, you should clone this repository into your local machine by using the following command.
 
     git clone https://github.com/DLCV-Fall-2022/hw2-<username>.git
 Note that you should replace `<username>` with your own GitHub username.
 
-## Submission Rules
+# Submission Rules
 ### Deadline
 2022/10/31 (Mon.) 23:59 (GMT+8)
 
